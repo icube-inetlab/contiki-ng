@@ -285,8 +285,38 @@ PT_THREAD(cmd_rpl_refresh_routes(struct pt *pt, shell_output_func output, char *
 {
   PT_BEGIN(pt);
 
-  SHELL_OUTPUT(output, "Triggering routes refresh\n");
-  rpl_refresh_routes("Shell");
+  SHELL_ARGS_INIT(args, next_args);
+
+  /* Get argument (remote IPv6) */
+  SHELL_ARGS_NEXT(args, next_args);
+  if(args == NULL) {
+    SHELL_OUTPUT(output, "Destination IPv6 address is not specified\n");
+    PT_EXIT(pt);
+  } else if(uiplib_ipaddrconv(args, &remote_addr) == 0) {
+    SHELL_OUTPUT(output, "Invalid IPv6 address: %s\n", args);
+    PT_EXIT(pt);
+  }
+
+  SHELL_OUTPUT(output, "Pinging ");
+  shell_output_6addr(output, &remote_addr);
+  SHELL_OUTPUT(output, "\n");
+
+  /* Send ping request */
+  curr_ping_process = PROCESS_CURRENT();
+  curr_ping_output_func = output;
+  etimer_set(&timeout_timer, PING_TIMEOUT);
+  uip_icmp6_send(&remote_addr, ICMP6_ECHO_REQUEST, 0, 4);
+  PT_WAIT_UNTIL(pt, curr_ping_output_func == NULL || etimer_expired(&timeout_timer));
+
+  if(curr_ping_output_func != NULL) {
+    SHELL_OUTPUT(output, "Timeout\n");
+    curr_ping_output_func = NULL;
+  } else {
+    SHELL_OUTPUT(output, "Received ping reply from ");
+    shell_output_6addr(output, &remote_addr);
+    SHELL_OUTPUT(output, ", len %u, ttl %u, delay %lu ms\n",
+                 curr_ping_datalen, curr_ping_ttl, (unsigned long) (1000*(clock_time() - timeout_timer.timer.start))/CLOCK_SECOND);
+  }
 
   PT_END(pt);
 }
