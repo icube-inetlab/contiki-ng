@@ -41,6 +41,7 @@ EFR32MG    := clock.c \
               watchdog.c \
               efr32-radio.c \
               i2c-arch.c \
+              slip-arch.c \
               gpio-hal-arch.c
 EMDRV      := dmadrv.c
 EMLIB_ALL  := ${notdir ${wildcard $(GECKO_SDK_PLATFORM)/emlib/src/*.c}}

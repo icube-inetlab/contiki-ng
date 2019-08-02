@@ -242,3 +242,8 @@ dbg_putchar(int ch)
   write_byte(ch);
   return ch;
 }
+
+void my_write_byte(char c)
+{
+  write_byte(c);
+}
