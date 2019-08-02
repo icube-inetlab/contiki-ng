@@ -283,6 +283,10 @@ PT_THREAD(cmd_rpl_status(struct pt *pt, shell_output_func output, char *args))
 static
 PT_THREAD(cmd_rpl_refresh_routes(struct pt *pt, shell_output_func output, char *args))
 {
+  static uip_ipaddr_t remote_addr;
+  static struct etimer timeout_timer;
+  char *next_args;
+
   PT_BEGIN(pt);
 
   SHELL_ARGS_INIT(args, next_args);
