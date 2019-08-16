@@ -66,6 +66,12 @@ extern const struct sensors_sensor button_right_sensor;
 
 /*---------------------------------------------------------------------------*/
 
+/*
+  Not every PINs/PORTs are mapped, and the one present are not
+  all the right ones. I only changedsome led definitions to see that Contiki-NG
+  is working well, without serial verifications.
+*/
+
 #define BSP_SERIAL_APP_CTS_PIN                (2)
 #define BSP_SERIAL_APP_CTS_PORT               (gpioPortA)
 #define BSP_SERIAL_APP_CTS_LOC                (30)
@@ -86,7 +92,7 @@ extern const struct sensors_sensor button_right_sensor;
 #define DEBUG_UART_RX_LOC  BSP_SERIAL_APP_RX_LOC
 
 
-#define BOARD_STRING      "STK-test-board"
+#define BOARD_STRING      "SLWSTK6000B - Test Board"
 
 #define BOARD_BUTTON_PORT         gpioPortD       /**< Pushbutton port                  */
 #define BOARD_BUTTON_SHIFT        14              /**< Pushbutton shift value           */
