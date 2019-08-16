@@ -96,19 +96,38 @@ i2c_arch_lock(i2c_device_t *dev)
   if(conf->I2Cx == I2C0) {
     CMU_ClockEnable(cmuClock_I2C0, true);
 
+#ifdef CUSTOM_I2C_PORTS_PINS
+    sda_port = BSP_PER_SDA_PORT;
+    sda_pin = BSP_PER_SDA_PIN;
+
+    scl_port = BSP_PER_SCL_PORT;
+    scl_pin = BSP_PER_SCL_PIN;
+
+#else
     sda_port = AF_I2C0_SDA_PORT(conf->sda_loc);
     sda_pin = AF_I2C0_SDA_PIN(conf->sda_loc);
 
     scl_port = AF_I2C0_SCL_PORT(conf->sda_loc);
     scl_pin = AF_I2C0_SCL_PIN(conf->sda_loc);
+#endif /* CUSTOM_I2C_PORTS_PINS */
 #ifdef I2C1
   } else if(conf->I2Cx == I2C1) {
     CMU_ClockEnable(cmuClock_I2C1, true);
+
+#ifdef CUSTOM_I2C_PORTS_PINS
+    sda_port = BSP_PER_SDA_PORT;
+    sda_pin = BSP_PER_SDA_PIN;
+
+    scl_port = BSP_PER_SCL_PORT;
+    scl_pin = BSP_PER_SCL_PIN;
+
+#else
     sda_port = AF_I2C1_SDA_PORT(conf->sda_loc);
     sda_pin = AF_I2C1_SDA_PIN(conf->sda_loc);
 
     scl_port = AF_I2C1_SCL_PORT(conf->sda_loc);
     scl_pin = AF_I2C1_SCL_PIN(conf->sda_loc);
+#endif /* CUSTOM_I2C_PORTS_PINS */
 #endif /* I2C1 */
   } else {
     PRINTF("I2C: lock: unsupported I2Cx: %p\n", conf->I2Cx);
@@ -232,7 +251,7 @@ i2c_arch_write(i2c_device_t *dev, const uint8_t *data, int len)
     return decode_status(ret);
   }
 
-  //PRINTF("I2C Init TX: %d Addr:%x (len: %d)\n", ret, i2cTransfer.addr, len);
+  PRINTF("I2C Init TX: %d Addr:%x (len: %d)\n", ret, i2cTransfer.addr, len);
 
   while(ret == i2cTransferInProgress && timeout > 0) {
     clock_delay_usec(1000);

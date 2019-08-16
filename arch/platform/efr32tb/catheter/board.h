@@ -64,13 +64,16 @@ extern const struct sensors_sensor button_left_sensor;
 extern const struct sensors_sensor button_right_sensor;
 
 /*---------------------------------------------------------------------------*/
-//#define SERIAL_BAUDRATE			      (9600)
+
 /*
-  Did not have the borad schematics, I refered to an example code
+  Did not have the board schematics, I refered to an example code
   in which Leds pins/ports were defined.
   I think the Debug USART is physically disabled by default since LEDs are
   connected to the same pins.
 
+  Not every PINs/PORTs are mapped, and the one present are not
+  all the right ones. I only changedsome led definitions to see that Contiki-NG
+  is working well, without serial verifications.
 */
 #define BSP_SERIAL_APP_CTS_PIN                (2)
 #define BSP_SERIAL_APP_CTS_PORT               (gpioPortA)
@@ -92,7 +95,7 @@ extern const struct sensors_sensor button_right_sensor;
 #define DEBUG_UART_RX_LOC  BSP_SERIAL_APP_RX_LOC
 
 
-#define BOARD_STRING      "TB-Sense-2"
+#define BOARD_STRING      "STGHW00027 - Catheter"
 
 #define BOARD_BUTTON_PORT         gpioPortD       /**< Pushbutton port                  */
 #define BOARD_BUTTON_SHIFT        14              /**< Pushbutton shift value           */
@@ -120,9 +123,18 @@ extern const struct sensors_sensor button_right_sensor;
 #define BOARD_IMU_SPI_SCLK_PIN      2             /**< IMU SPI serial clock pin         */
 #define BOARD_IMU_SPI_CS_PIN        3             /**< IMU SPI chip select pin          */
 
+#define CUSTOM_I2C_PORTS_PINS       1
+#define BSP_PER_I2C_INST            I2C1
+#define BSP_PER_SCL_PORT            gpioPortC
+#define BSP_PER_SCL_PIN             11
+#define BSP_PER_SCL_LOC             _I2C_ROUTELOC0_SCLLOC_LOC19
+#define BSP_PER_SDA_PORT            gpioPortC
+#define BSP_PER_SDA_PIN             10
+#define BSP_PER_SDA_LOC             _I2C_ROUTELOC0_SDALOC_LOC19
 #define SI1133_I2C_BUS i2c1_bus
 #define SI7021_I2C_BUS i2c1_bus
 #define BMP_I2C_BUS    i2c1_bus
+#define I2C1_BUS       i2c1_bus
 
 /* Bit fields for PIC_REG_LED_CTRL */
 #define BOARD_PIC_REG_LED_CTRL_PWR_EN       0x01   /**< LED control register, Power enable bit        */

@@ -64,7 +64,12 @@ extern const struct sensors_sensor button_left_sensor;
 extern const struct sensors_sensor button_right_sensor;
 
 /*---------------------------------------------------------------------------*/
-#define SERIAL_BAUDRATE			      (9600)
+/*#define SERIAL_BAUDRATE			      (9600)*/
+/*
+
+  Not every PINs/PORTs are mapped, and the one present are not
+  all the right ones. I only changed some led, I2C and UART port definitions.
+*/
 
 #define BSP_SERIAL_APP_CTS_PIN                (2)
 #define BSP_SERIAL_APP_CTS_PORT               (gpioPortA)
@@ -86,7 +91,7 @@ extern const struct sensors_sensor button_right_sensor;
 #define DEBUG_UART_RX_LOC  BSP_SERIAL_APP_RX_LOC
 
 
-#define BOARD_STRING      "TB-Sense-2"
+#define BOARD_STRING      "XLBee"
 
 #define BOARD_BUTTON_PORT         gpioPortD       /**< Pushbutton port                  */
 #define BOARD_BUTTON_SHIFT        14              /**< Pushbutton shift value           */
@@ -109,14 +114,23 @@ extern const struct sensors_sensor button_right_sensor;
 #define BOARD_IMU_INT_PORT          gpioPortF     /**< IMU interrupt port               */
 #define BOARD_IMU_INT_PIN           12            /**< IMU interrupt pin                */
 #define BOARD_IMU_SPI_PORT          gpioPortC     /**< IMU SPI port                     */
-#define BOARD_IMU_SPI_MOSI_PIN      0             /**< IMU SPI master out slave in pin  */
-#define BOARD_IMU_SPI_MISO_PIN      1             /**< IMU SPI master in slave out pin  */
-#define BOARD_IMU_SPI_SCLK_PIN      2             /**< IMU SPI serial clock pin         */
-#define BOARD_IMU_SPI_CS_PIN        3             /**< IMU SPI chip select pin          */
+#define BOARD_IMU_SPI_MOSI_PIN      6             /**< IMU SPI master out slave in pin  */
+#define BOARD_IMU_SPI_MISO_PIN      7             /**< IMU SPI master in slave out pin  */
+#define BOARD_IMU_SPI_SCLK_PIN      8             /**< IMU SPI serial clock pin         */
+#define BOARD_IMU_SPI_CS_PIN        9             /**< IMU SPI chip select pin          */
 
+#define CUSTOM_I2C_PORTS_PINS       1
+#define BSP_PER_I2C_INST            I2C1
+#define BSP_PER_SCL_PORT            gpioPortC
+#define BSP_PER_SCL_PIN             11
+#define BSP_PER_SCL_LOC             _I2C_ROUTELOC0_SCLLOC_LOC19
+#define BSP_PER_SDA_PORT            gpioPortC
+#define BSP_PER_SDA_PIN             10
+#define BSP_PER_SDA_LOC             _I2C_ROUTELOC0_SDALOC_LOC19
 #define SI1133_I2C_BUS i2c1_bus
 #define SI7021_I2C_BUS i2c1_bus
 #define BMP_I2C_BUS    i2c1_bus
+#define I2C1_BUS       i2c1_bus
 
 /* Bit fields for PIC_REG_LED_CTRL */
 #define BOARD_PIC_REG_LED_CTRL_PWR_EN       0x01   /**< LED control register, Power enable bit        */
