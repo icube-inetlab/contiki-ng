@@ -86,7 +86,7 @@ typedef uint32_t uip_stats_t;
  *
  */
 #ifndef PLATFORM_HAS_I2C_ARCH
-#define PLATFORM_HAS_I2C_ARCH                   0
+#define PLATFORM_HAS_I2C_ARCH                   1
 #endif
 /*---------------------------------------------------------------------------*/
 /* Include CPU-related configuration */
