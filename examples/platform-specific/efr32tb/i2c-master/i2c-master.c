@@ -56,12 +56,9 @@
 #ifndef I2C1_BUS
 #error I2C1_BUS must be set!
 #endif /* I2C1_BUS */
-#define SI7021_ADDR       0x40
-#define NT3H_ADDR         0x55
-#define SI7013_READ_RH    0xE5
-#define SI7013_READ_TEMP  0xE0
+
 #define CUSTOM_ADDR       0x09
-#define CUSTOM_CMD        0x88
+
 #define INT_PIN           6
 #define INT_PORT          2
 
