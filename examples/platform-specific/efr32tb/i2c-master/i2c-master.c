@@ -39,9 +39,11 @@
 
 /*
   author : Pacheu Maxime
-  This example is designed to work on Platform efr32tb for the Board xlbee
+  This example is designed to work on Platform efr32tb for the Board stghw00036
   This example is supposed to work with the I2C_EFM32_SLAVE written
-  in simplicity studio, flashed on the Main MCU.
+  in simplicity studio, flashed on the Main MCU
+  Or with an XLBee that sets the level of the MOSI pin
+  of the SPI bus, and works as an I2C slave with the right address.
 
   It shows the simple Write and Read transfer operations on I2C
 */
