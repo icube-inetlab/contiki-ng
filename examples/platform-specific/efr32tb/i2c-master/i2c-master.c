@@ -65,7 +65,7 @@
 #define INT_PORT          2
 
 volatile bool temp = false;
-volatile process_event_t temp_event;
+
 /*---------------------------------------------------------------------------*/
 /*
  * Callback function
@@ -77,7 +77,6 @@ event_callback(gpio_hal_port_t port, gpio_hal_pin_mask_t pin_mask)
   (void)pin_mask;
   gpio_hal_arch_toggle_pin(3, 15);
   temp = true;
-  //process_post(PROCESS_BROADCAST, temp_event, NULL);
 }
 
 /*---------------------------------------------------------------------------*/
@@ -109,7 +108,6 @@ PROCESS_THREAD(hello_world_i2c_process, ev, data)
 
   char * msg = "What?";
 	uint8_t readBuf[16] 	= {0};
-  temp_event = process_alloc_event();
 
   gpio_hal_register_handler(&event_handler);
   gpio_hal_arch_pin_set_input(INT_PORT,INT_PIN);
